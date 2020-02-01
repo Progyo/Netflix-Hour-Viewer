@@ -2,13 +2,12 @@
 
 
 var selected = "";
-var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 var data;
 
 //https://stackoverflow.com/questions/31803300/coloring-the-text-depending-on-numeric-value-using-css
-var colorMatch = 
-    {
+var colorMatch = {
         '0': 'none',
         '1-45': 'bit',
         '46-90': 'medium',
@@ -164,7 +163,14 @@ function OnClick(obj)
     if(data.hasOwnProperty(selected))
     {
         console.log(data[selected]);
-        $("#day").text(data[selected]["duration"]);
+        $("#day").text("Watched a total of "+ data[selected]["duration"]+" minutes");
+        
+        for(var ep in data[selected]["episodes"])
+        {
+            createEpisodeTile(ep);
+        }
+        
+        
     }
     else
     {
@@ -229,7 +235,7 @@ function loadData()
     for(var j=0; j < years.length; j++)
     {
         
-        $("#years").append('<div id='+years[j]+'></div>');
+        $("#years").append('<div class = "year" id='+years[j]+'></div>');
         
         //For month offsets
         var start = 0;
@@ -252,3 +258,20 @@ function loadData()
     }
 }
 
+function createEpisodeTile(obj)
+{
+    var episode = data[selected]["episodes"][obj];
+    //console.log(episode);
+    var html;
+    if(episode["movie"])
+    {
+        html = '<p>'+ obj+'</p>';
+    }
+    else
+    {
+        html = '<p>'+ obj+' '+episode["show_name"]+' Season: '+episode["season"]+' ('+episode["duration"]+')</p>';
+    }
+    
+    
+    $("#day").append(html);
+}
