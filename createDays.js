@@ -192,8 +192,6 @@ function loadData()
     {
         if (data.hasOwnProperty(key)) 
         {
-            //console.log(key + " -> " + data[key]);
-            
             var year = key.split("/")[2];
             if (years.includes(year) == false)
             {
@@ -216,8 +214,6 @@ function loadData()
     {
         if (data.hasOwnProperty(key)) 
         {
-            //console.log(key + " -> " + data[key]);
-            
             var year = key.split("/")[2];
             var month = key.split("/")[1];
             if (year == years[0] && month < smallestMonth)
@@ -261,7 +257,7 @@ function loadData()
 function createEpisodeTile(obj)
 {
     var episode = data[selected]["episodes"][obj];
-    //console.log(episode);
+    
     var html;
     if(episode["movie"])
     {
@@ -269,7 +265,7 @@ function createEpisodeTile(obj)
     }
     else
     {
-        html = '<p>'+ obj+' '+episode["show_name"]+' Season: '+episode["season"]+' ('+episode["duration"]+')</p>';
+        html = '<p>'+ obj+' - '+episode["show_name"]+' - Season: '+episode["season"]+' ('+episode["duration"]+')</p>';
     }
     
     

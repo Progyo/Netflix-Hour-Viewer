@@ -1,6 +1,6 @@
 import pandas as pd
 
-files = ["NetflixViewingHistoryNadim.csv","NetflixViewingHistoryNadim2019.csv"]
+files = ["NetflixViewingHistoryNadim.csv","NetflixViewingHistoryNadimJan2020.csv"]
 
 f = pd.DataFrame(columns=["Title","Date"])
 
@@ -81,7 +81,7 @@ def merge(files,csvName):
 
     f = f.sort_values(by=["Date"],ascending=False)
     f.to_csv(csvName)
-#merge(files,"NadimMerged.csv")
+#merge(files,"NadimMergedApril2020.csv")
 
 
 
@@ -361,5 +361,5 @@ def csv_to_json(csv):
     data += "}"
     return data
 
-with open('elke.json', 'w') as outfile:
-    outfile.write(csv_to_json(pd.read_csv("NetflixViewingHistoryElke.csv")))
+with open('nadimApril2020.json', 'w') as outfile:
+    outfile.write(csv_to_json(pd.read_csv("NadimMergedApril2020.csv")))
