@@ -274,6 +274,7 @@ def getDuration(search, show, movie):
 
 def csv_to_json(csv):
 
+    #Initialize variables
     data = "{"   #Parent json
     date = ""
     episodes = "{"    #Episodes json
@@ -281,13 +282,14 @@ def csv_to_json(csv):
     totalMovs = 0
     totalDuration = 0
 
-    
+    #Loop through all rows in the csv
     for index, row in csv.iterrows():
         
         if row["Date"] != date and date != "":
 
             episodes = episodes[:-1]
 
+            #
             data += '"{0}": {{"episodes": {1}}}, "total_episodes": {2}, "total_movies": {3}, "duration": {4}}},'.format(date,episodes,totalEps,totalMovs,totalDuration)
 
             
@@ -314,7 +316,8 @@ def csv_to_json(csv):
             season = ""
 
             for s in row["Title"].split(":"): #Incase a show like Cosmos: A space odyssey appears 
-                
+
+                #Get season number by splitting string
                 if "Season" in s or "Part" in s:
                     season = s.split(" ")[2]
                     break
@@ -361,5 +364,5 @@ def csv_to_json(csv):
     data += "}"
     return data
 
-with open('nadimApril2020.json', 'w') as outfile:
-    outfile.write(csv_to_json(pd.read_csv("NadimMergedApril2020.csv")))
+with open('nadimOctober2020.json', 'w') as outfile:
+    outfile.write(csv_to_json(pd.read_csv("NetflixViewingHistoryNadimOct2020_merged.csv")))

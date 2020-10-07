@@ -62,7 +62,7 @@ $(document).ready(function(){
                     }
                 }
             }
-            if(currentKey != "0")
+            if(currentKey != "-1")
             {
                 $(this).addClass(colorMatch[currentKey]);
             }
@@ -78,13 +78,27 @@ $(document).ready(function(){
 
 function Select(obj)
 {
+    var selectedClass = obj.get(0).getAttribute("class");
     obj.val(obj.text());
     obj.html('<span class="active">'+obj.text()+'</span>');
+    
+    //Remove class before so there is no offset
+    obj.removeClass(selectedClass);
+    obj.addClass("-"+selectedClass);
 }
 
 function Deselect(obj)
 {
+     var selectedClass = obj.get(0).getAttribute("class");
      obj.html(obj.val());
+    
+    //Add back previous class
+    obj.removeClass(selectedClass);
+    if(selectedClass != "-null")
+    {
+        obj.addClass(selectedClass.replace("-",""));
+    }
+    
 }
 
 function createMonth(month,days,year)
@@ -249,11 +263,13 @@ function loadData()
         
         for(var i= start; i <end; i++)
         {
-            $("#"+years[j]).append(createMonth([months[i],i+1],30,years[j]));
+            //Create the month tile and append it to the year
+            $("#"+years[j]).append(createMonth([months[i],i+1],31,years[j]));
         }
     }
 }
 
+//Shows episodes watched on that day
 function createEpisodeTile(obj)
 {
     var episode = data[selected]["episodes"][obj];
